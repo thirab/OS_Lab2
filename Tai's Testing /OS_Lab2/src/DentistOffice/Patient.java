@@ -18,13 +18,6 @@ public class Patient implements Runnable {
 		//System.out.println("new Patient");
 		while(true){
 			while(!seats.tryAcquire()){
-				try {
-			        synchronized(this){
-			            wait();
-			        }
-			    } catch (InterruptedException e) {
-			        // ...
-			    }
 			}
 				System.out.println("New patient Enters");
 				int waiting = patients.availablePermits();
@@ -38,11 +31,7 @@ public class Patient implements Runnable {
 					}
 					System.out.println("waiting for a dentist");
 					System.out.println("Dentist is: " + dentist.availablePermits());
-					while(dentist.availablePermits() ==1){
-						synchronized(this){
-						    notify();
-						}
-					}
+					
 					//in this case this consulting with dentist doesnt actually have a purpose
 //					while(!dentist.tryAcquire()){
 //					}

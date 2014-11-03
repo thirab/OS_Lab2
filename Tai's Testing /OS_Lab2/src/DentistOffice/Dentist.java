@@ -21,26 +21,12 @@ public class Dentist implements Runnable {
 		while(true){
 			System.out.println("Tring dentist");
 			while(!dentist.tryAcquire()){
-				try {
-					synchronized(this){
-						wait();
-					}
-				} catch (InterruptedException e) {
-					// ...
-				}
 			}
 
 			System.out.println("Dentist is awake");
 
 
 			while(!seats.tryAcquire()){
-				try {
-					synchronized(this){
-						wait();
-					}
-				} catch (InterruptedException e) {
-					// ...
-				}
 			}
 			System.out.println("dentist got seats");
 
@@ -50,6 +36,7 @@ public class Dentist implements Runnable {
 				patientsTreated++;
 				patients.tryAcquire();
 			}
+			dentist.release();
 			seats.release();
 			System.out.println("Seats: " + seats.availablePermits());
 
