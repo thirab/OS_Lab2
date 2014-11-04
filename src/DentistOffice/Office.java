@@ -2,7 +2,11 @@ package DentistOffice;
 
 import java.util.Stack;
 import java.util.concurrent.Semaphore;
-
+/**
+ * Office where the dentist and patients meet.
+ * @author tai-lanhirabayashi
+ *
+ */
 public class Office {
 	
 	//semaphores for locking
@@ -16,7 +20,10 @@ public class Office {
 	//calculated based on number of patients
 	int numberOfFreeSeats;
 
-	
+	/**
+	 * Creates the Dentists Office
+	 * @param chairs
+	 */
 	Office(int chairs){
 		System.out.println("creating office");
 		sizeChairs = chairs;

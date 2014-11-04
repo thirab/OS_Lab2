@@ -4,6 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * Shire Test tests the shire :)
+ * @author tai-lanhirabayashi
+ *
+ */
 public class ShireTest {
 
 	/**

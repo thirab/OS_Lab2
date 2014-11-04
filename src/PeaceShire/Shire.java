@@ -16,12 +16,18 @@ public class Shire {
 		System.out.println("Started espionage");
 	}
 	
+	/**
+	 * Create a new spy
+	 * @param message
+	 */
 	public void createSpy(String message){
 		System.out.println("creating a spy with the message: " + message);
 		Spy spy = new Spy(esp,message);
 		(new Thread(spy)).start();
 	}
-	
+	/**
+	 * Create a new agent
+	 */
 	public void createAgent(){
 		System.out.println("creating an agent");
 		Agent agent = new Agent(esp);

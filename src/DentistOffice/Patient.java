@@ -1,7 +1,11 @@
 package DentistOffice;
 
 import java.util.concurrent.Semaphore;
-
+/**
+ * Patients seat themselves if there are avaliable chairs and are treated by the dentist.
+ * @author tai-lanhirabayashi
+ *
+ */
 public class Patient implements Runnable {
 	Semaphore seats;
 	Semaphore dentist;
@@ -17,14 +21,21 @@ public class Patient implements Runnable {
 	public void run() {
 		//System.out.println("new Patient");
 		while(true){
+			
+			//until seats are avaliable do nothign
 			while(!seats.tryAcquire()){
 			}
-				System.out.println("New patient Enters");
+				//see if there are enought seats
 				int waiting = patients.availablePermits();
 				if(waiting < max){
+					
+					//if there are enough seats set, else leave
+					System.out.println("new patient sits");
 					System.out.println("waiting: " +waiting + " Max: " + max);
 					patients.release();
 					int dent = dentist.availablePermits();
+					
+					//if dentist is asleep wake him up
 					if(dent == 0){
 						System.out.println("wake up the dentist");
 						dentist.release();
@@ -32,14 +43,9 @@ public class Patient implements Runnable {
 					System.out.println("waiting for a dentist");
 					System.out.println("Dentist is: " + dentist.availablePermits());
 					
-					//in this case this consulting with dentist doesnt actually have a purpose
-//					while(!dentist.tryAcquire()){
-//					}
-//					//consult dentist
-//					dentist.release();
+					
 				}
 				//release seats
-				System.out.println("Releasing the seats");
 				seats.release();
 			}
 		}

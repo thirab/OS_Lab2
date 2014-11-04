@@ -1,7 +1,12 @@
 package DentistOffice;
 
 import java.util.concurrent.Semaphore;
-
+/**
+ * Dentist processes patients.
+ * Sleeps when there are no patients
+ * @author tai-lanhirabayashi
+ *
+ */
 public class Dentist implements Runnable {
 
 	Semaphore seats;
@@ -19,26 +24,24 @@ public class Dentist implements Runnable {
 	public void run() {
 
 		while(true){
-			System.out.println("Tring dentist");
+			//while dentist is not awake do nothing
 			while(!dentist.tryAcquire()){
 			}
 
-			System.out.println("Dentist is awake");
 
-
+			//while seats are being used do nothing
 			while(!seats.tryAcquire()){
 			}
-			System.out.println("dentist got seats");
 
-			while(patients.availablePermits()>0){
+			//while there are patients treat them
+			while(patients.tryAcquire()){
 				//treat each patient
 				System.out.println("Treated a patient: " +  patientsTreated);
 				patientsTreated++;
-				patients.tryAcquire();
 			}
-			dentist.release();
+			
+			//release the seats 
 			seats.release();
-			System.out.println("Seats: " + seats.availablePermits());
 
 		}
 
